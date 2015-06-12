@@ -20,6 +20,7 @@ LOCAL_MODULE    := touch_vcr
 LOCAL_SRC_FILES := touch_vcr.cpp \
 				TouchPanel.cpp \
 				InputMessenger.cpp \
+				Clock.cpp \
 				Message.cpp
 
 include $(BUILD_EXECUTABLE)

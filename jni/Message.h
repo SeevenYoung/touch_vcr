@@ -3,6 +3,7 @@
 
 #include "touch_vcr.h"
 #include <string>
+#include <time.h>
 
 enum msg_type { 
     UNSET,

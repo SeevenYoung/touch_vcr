@@ -4,6 +4,7 @@
 #include "touch_vcr.h"
 #include "InputMessenger.h"
 #include "Message.h"
+#include "Clock.h"
 
 enum SlotState {
     IN_USE,
@@ -83,6 +84,7 @@ private:
     int screenHeight;
 
     InputMessenger* mMessenger;
+    Clock mInputClock;
 
     void clearSlots(int32_t initialSlot);
     bool getAbsoluteAxisValue(int32_t axis, int32_t* outValue);

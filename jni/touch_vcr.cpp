@@ -1,6 +1,7 @@
 #include "touch_vcr.h"
 #include "TouchPanel.h"
 #include "InputMessenger.h"
+#include "Clock.h"
 
 #include "sys/system_properties.h"
 
@@ -9,13 +10,6 @@ bool SCALE_NHD = false;
 const int MAX_PATH = 256;
 
 static struct pollfd ufds[2];
-
-int32_t getMonotonicMS() {
-    struct timespec t;
-    t.tv_sec = t.tv_nsec = 0;
-    clock_gettime(CLOCK_MONOTONIC, &t);
-    return (int32_t)(t.tv_sec)*1000LL + t.tv_nsec/1000000LL;
-}
 
 bool is_touch_device(const char *devname) 
 {
@@ -98,6 +92,7 @@ int main(int argc, char *argv[])
 {
     TouchPanel *touchPanel;
     InputMessenger* messenger;
+    Clock clock;
     char device[MAX_PATH];
     int pollres = 0;
     int res = 0;
@@ -175,14 +170,14 @@ int main(int argc, char *argv[])
     ufds[1].events = POLLIN;
 
     // Device discovery and setup (based on which phone this is)
-    if(VERBOSE) printf("Starting input polling %d\n", getMonotonicMS());
+    if(VERBOSE) printf("Starting input polling %d\n", clock.getTimestampStart());
 
     int pollTimeout = -1;
     int now = 0;
     Message msg;
 
     while(1) {
-        now = getMonotonicMS();
+        now = clock.getTimestampNow();
         if(!messenger->isEmpty()) {
             pollTimeout = messenger->dequeue(now, msg);
             while( pollTimeout == 0 )  {

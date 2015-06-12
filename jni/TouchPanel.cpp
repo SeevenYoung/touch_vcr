@@ -259,7 +259,7 @@ void TouchPanel::process(const input_event* rawEvent) {
             mCurrentSlot += 1;
         }
     } else if( rawEvent->type == EV_SYN && rawEvent->code == SYN_REPORT) {
-        int32_t timestamp = (rawEvent->time.tv_sec*1000) + (rawEvent->time.tv_usec/1000);
+        int32_t timestamp = mInputClock.getTimestamp(rawEvent->time);
         // Iterate over the slots.  If a slot is done, report that
         for(int i = 0; i < mSlotCount; i++ ) {
             Slot* slot = &mSlots[i];
@@ -282,6 +282,7 @@ void TouchPanel::process(const input_event* rawEvent) {
         }
     }
 }
+
 /*
 #ifdef DEBUG
         printf("Replaying sync %d %d %d %d\n", msg.getTimestamp(), msg.getTrackingID(), msg.getX(), msg.getY() );
