@@ -1,22 +1,20 @@
 #ifndef EVENTCAT_HEADER
 #define EVENTCAT_HEADER
 
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <jni.h>
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
+#include <string.h>
+
 #include <dirent.h>
+#include <errno.h>
 #include <fcntl.h>
-#include <sys/ioctl.h>
+#include <linux/input.h>
+#include <stdint.h>
 #include <sys/inotify.h>
+#include <sys/ioctl.h>
 #include <sys/limits.h>
 #include <sys/poll.h>
-#include <linux/input.h>
-#include <errno.h>
 #include <time.h>
 
 typedef int64_t nsecs_t;
